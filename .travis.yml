@@ -1,0 +1,37 @@
+---
+language: python
+python: "2.7"
+
+env:
+  - SITE=test-nodejs.yml
+  - SITE=test-npm.yml
+
+before_install:
+  - sudo apt-get update -qq
+
+install:
+  # Install ansible
+  - pip install ansible
+  # Set ansible.cfg and roles_path
+  - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
+
+script:
+
+  # Check syntax
+  - "ansible-playbook -i tests/inventory tests/$SITE --syntax-check"
+
+  # Run the role/playbook with ansible-playbook
+  - "ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo"
+
+  # Run again to check idempotency
+  - >
+    ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo
+    | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
+
+  # Make sure nodejs is installed.
+  - >
+    which node
+    && (echo 'nodejs is installed' && exit 0)
+    || (echo 'nodejs is not installed' && exit 1)
