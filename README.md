@@ -1,5 +1,7 @@
 # Ansible Role: nodejs
 
+[![BuildStatus](https://travis-ci.org/JhovaniC/ansible-role-nodejs.svg?branch=master)](https://travis-ci.org/JhovaniC/ansible-role-nodejs)
+
 Installs nodejs on Debian/Ubuntu.
 
 ## Requirements
