@@ -14,7 +14,7 @@ Available variables are listed below, along with default values (see `defaults/m
 
     nodejs_version: "0.12"
 
-The Node.js version to install. "0.12" is the default.
+The nodejs version to install. "0.12" is the default.
 
     nodejs_forever: true
 

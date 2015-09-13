@@ -3,6 +3,12 @@
   fail: nodejs_version is not set correctly
   when: nodejs_version not in [ "0.10", "0.12" ]
 
+# To install packages that need to be built from source
+- name: Make sure build-essential is installed
+  apt:
+    name: build-essential
+    state: present
+
 - name: Add NodeSources apt key
   apt_key:
     url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
